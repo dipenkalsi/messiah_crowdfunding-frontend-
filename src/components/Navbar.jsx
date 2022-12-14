@@ -13,13 +13,17 @@ const Navbar = () => {
     setIsActive('profile');
   }
   const [toggleDrawer, setToggleDrawer] = useState(false);
-  const { connect, address ,isActive,setIsActive} = useStateContext();
+  const { connect, address ,isActive,setIsActive,setSearchField , searchField} = useStateContext();
   // console.log(connect());
+  const handleChange=(e)=>{
+    setSearchField(e.target.value);
+    console.log(searchField)
+  }
   return (
     <div className="flex md:flex-row flex-col-reverse justify-between mb-[35px] gap-6">
       <div className="lg:flex-1 flex flex-row max-w-[458px] py-2 pl-4 pr-2 h-[52px] bg-[#4d0028] rounded-[100px]">
-        <input type="text" placeholder="Search for campaigns" className="flex w-full font-epilogue font-normal text-lg placeholder:text-[#cc0069] text-[#ff66b5] bg-transparent outline-none transition-all ease-in-out delay-100" />
-        <div className="w-[72px] h-full rounded-[20px] bg-[#ff3399] hover:bg-[#bc2571] flex justify-center items-center cursor-pointer">
+        <input type="text" placeholder="Search for category" className="flex w-full font-epilogue font-normal text-lg placeholder:text-[#cc0069] text-[#ff66b5] bg-transparent outline-none transition-all ease-in-out delay-100" onChange={handleChange}/>
+        <div className="w-[72px] h-full rounded-[20px] bg-[#ff3399] hover:bg-[#bc2571] transition-all ease-in-out delay-100 flex justify-center items-center cursor-pointer">
           <img src={search} alt="search" className="w-[15px] h-[15px] object-contain"/>
         </div>
       </div>

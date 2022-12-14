@@ -19,7 +19,8 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
+  border-radius: 444px;
 }
 
 /* Track */

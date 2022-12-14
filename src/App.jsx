@@ -2,8 +2,11 @@ import React from 'react'
 import {Route,Routes} from 'react-router-dom'; 
 import {CreateCampaign, CampaignDetails , Profile , Home } from './pages/index.js'
 import {Navbar , Sidebar} from './components/index'
+import { useStateContext } from './context/index.jsx';
 const App = () => {
+  const {theme} =useStateContext();
   return (
+    <div className={`${theme}`}>
     <div className='relative sm:-8 p-4 bg-[#1a0000] min-h-screen flex flex-row'>
       <div className='sm:flex hidden mr-10 relative'>
         <Sidebar/>
@@ -18,6 +21,7 @@ const App = () => {
           <Route path="/campaign-details/:id" element={<CampaignDetails/>} />
         </Routes>
       </div>
+    </div>
     </div>
   )
 }

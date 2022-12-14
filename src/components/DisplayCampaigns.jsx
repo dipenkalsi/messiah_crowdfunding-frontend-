@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useStateContext } from '../context';
 
 import FundCard from './FundCard';
 import Loader from './Loader';
@@ -10,15 +11,12 @@ const DisplayCampaigns = ({ title, isLoading, campaigns }) => {
   const handleNavigate = (campaign) => {
     navigate(`/campaign-details/${campaign.title}`, { state: campaign })
   }
-  
-  const overCampaigns = async()=>{
-    let sum=0;
-    for(const campaign of campaigns){
-      if(campaign.amountCollected>=campaign.target){
-        sum++;
-      }
+  const {searchField}= useStateContext();
+  const search=()=>{
+    if(searchField!==''){
+      return searchField;
     }
-    return sum;
+    else { return null}
   }
   return (
     <div>
@@ -35,7 +33,12 @@ const DisplayCampaigns = ({ title, isLoading, campaigns }) => {
           </p>
         )}
 
-        {!isLoading && campaigns.length > 0 && campaigns.map((campaign) => campaign.amountCollected!==campaign.target&&<FundCard 
+        {!isLoading && search()&& campaigns.length > 0 && campaigns.map((campaign) => campaign.amountCollected<campaign.target&&campaign.category.toLowerCase().includes(search())&&<FundCard 
+          key={campaign.id}
+          {...campaign}
+          handleClick={() => handleNavigate(campaign)}
+        />)}
+        {!isLoading && !search()&& campaigns.length > 0 && campaigns.map((campaign) => campaign.amountCollected<campaign.target&&<FundCard 
           key={campaign.id}
           {...campaign}
           handleClick={() => handleNavigate(campaign)}

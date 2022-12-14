@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { StateContextProvider, useStateContext } from '../context';
 import { useDisconnect } from "@thirdweb-dev/react";
@@ -7,7 +7,7 @@ import logo from './logo2.png'
 import { navlinks } from '../constants';
 
 const Icon = ({ styles, name, imgUrl, isActive, disabled, handleClick ,imgStyles}) => (
-  <div className={`w-[48px] h-[48px] rounded-[10px] ${isActive && isActive === name && 'bg-[#80002a]'} flex justify-center items-center ${!disabled && 'cursor-pointer'} ${styles}`} onClick={handleClick}>
+  <div className={`w-[48px] h-[48px] rounded-full transition-all ease-in delay-100 ${!(isActive && isActive === name) &&`hover:bg-[#9f214b]`} ${isActive && isActive === name && 'bg-[#80002a]'} flex justify-center items-center ${!disabled && 'cursor-pointer'} ${styles}`} onClick={handleClick}>
     {!isActive ? (
       <img src={imgUrl} alt="fund_logo" className={` ${imgStyles}`} />
     ) : (
@@ -17,12 +17,22 @@ const Icon = ({ styles, name, imgUrl, isActive, disabled, handleClick ,imgStyles
 )
 
 const Sidebar = () => {
+  const {isActive,setIsActive,theme,setTheme} =useStateContext();
+  const handleThemeChange=()=>{
+    if(theme==="dark"){
+      setTheme("light");
+    }
+    else{
+      setTheme("dark")
+    }
+    console.log(theme)
+  }
   const disconnect = useDisconnect();
   const navigate = useNavigate();
   // const [isActive, setIsActive] = useState('dashboard');
-  const {isActive,setIsActive} =useStateContext();
 
   return (
+    <div className={theme}>
     <div className="flex justify-between items-center flex-col sticky top-5 h-[90vh]">
       <Link to="/">
         <Icon styles="w-[70px] h-[56px] " imgUrl={logo} imgStyles="w-full px-1" />
@@ -50,8 +60,9 @@ const Sidebar = () => {
           ))}
         </div>
 
-        <Icon styles="bg-[#4d0000] " imgUrl={sun} />
+        <Icon styles="bg-[#4d0000]" imgUrl={sun} handleClick={handleThemeChange}/>
       </div>
+    </div>
     </div>
   )
 }

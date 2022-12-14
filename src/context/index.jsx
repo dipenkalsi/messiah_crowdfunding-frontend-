@@ -15,6 +15,8 @@ export const StateContextProvider = ({ children }) => {
   const connect = useMetamask();
 
   const [isActive,setIsActive]=useState('dashboard')
+  const [theme , setTheme] = useState('dark');
+  const [searchField,setSearchField] = useState('');
   const publishCampaign = async (form) => {
     try {
       const data = await createCampaign([
@@ -93,7 +95,11 @@ export const StateContextProvider = ({ children }) => {
         donate,
         getDonations,
         isActive,
-        setIsActive
+        setIsActive,
+        theme,
+        setTheme,
+        searchField,
+        setSearchField
       }}
     >
       {children}
