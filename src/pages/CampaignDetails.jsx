@@ -146,7 +146,7 @@ const CampaignDetails = () => {
                 <p className="mt-[8px] font-epilogue  font-normal leading-[22px] text-sm text-[#cc00cc]">➡️ We assure that on our platform campaign owners are genuine and will use the money collected only for the mentioned cause.</p>
               </div>
               {!address &&<div className='bg-[#330033] text-red-800 pl-3 py-2 rounded-lg'>Connect your wallet to donate to this campaign 💀</div>}
-              {!isOwner&&<CustomButton 
+              {!isOwner&&address&&<CustomButton 
                 btnType="button"
                 title="Fund Campaign 💰"
                 styles={`w-full bg-[#cc00cc] hover:bg-[#b300b3] text-xl `}
